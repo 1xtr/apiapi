@@ -1,3 +1,5 @@
+## It's fork of [apiapi](https://github.com/boo1ean/apiapi)
+
 ## Api client for lazy devs
 
 Quickly write up any json api client for your purpose.
