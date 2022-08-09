@@ -1,5 +1,9 @@
 ## It's fork of [apiapi](https://github.com/boo1ean/apiapi)
 
+```
+Updated all dependencies
+```
+
 ## Api client for lazy devs
 
 Quickly write up any json api client for your purpose.
@@ -9,7 +13,7 @@ You can use both callbacks and promises for api client methods.
 ## Installation
 
 ```bash
-npm install apiapi
+npm install 1xtr/apiapi
 ```
 
 ## Example usage
@@ -17,7 +21,7 @@ npm install apiapi
 Sample api client for github
 
 ```js
-var ApiClient = require('apiapi');
+var ApiClient = require('1xtr/apiapi');
 
 var github = new ApiClient({
 	baseUrl: 'https://api.github.com',
