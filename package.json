@@ -1,6 +1,6 @@
 {
-  "name": "apiapi",
-  "version": "1.7.1",
+  "name": "1xtr/apiapi",
+  "version": "1.0.0",
   "description": "Create api clients for node and browser with ease",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/boo1ean/apiapi.git"
+    "url": "https://github.com/1xtr/apiapi.git"
   },
   "keywords": [
     "api",
@@ -18,22 +18,22 @@
     "rest",
     "fetch"
   ],
-  "author": "Egor Gumenyuk <boo1ean0807@gmail.com>",
+  "author": "Aleksei Anisimov <i@trendco.dev>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/boo1ean/apiapi/issues"
+    "url": "https://github.com/1xtr/apiapi/issues"
   },
-  "homepage": "https://github.com/boo1ean/apiapi",
+  "homepage": "https://github.com/1xtr/apiapi",
   "dependencies": {
-    "axios": "^0.7.0",
+    "axios": "^0.27.2",
     "bluebird": "^3.0.2",
-    "debug": "^2.2.0",
-    "lodash": "^3.10.1",
+    "debug": "^4.3.4",
+    "lodash": "^4.17.21",
     "shitty-qs": "^1.0.1"
   },
   "devDependencies": {
-    "mocha": "^2.1.0",
-    "should": "^4.6.1",
-    "sinon": "^1.12.2"
+    "mocha": "^10.0.0",
+    "should": "^13.2.3",
+    "sinon": "^14.0.0"
   }
 }
