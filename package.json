@@ -1,6 +1,6 @@
 {
-  "name": "1xtr/apiapi",
-  "version": "1.0.0",
+  "name": "@1xtr/apiapi",
+  "version": "1.0.1",
   "description": "Create api clients for node and browser with ease",
   "main": "index.js",
   "scripts": {
