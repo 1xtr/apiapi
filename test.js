@@ -1,5 +1,4 @@
 require('should');
-var sinon = require('sinon');
 var ApiClient = require('./');
 var Promise = require('bluebird');
 
@@ -7,7 +6,7 @@ describe('ApiClient', function () {
 	var response = { status: 200, data: 'body' };
 
 	var client = new ApiClient({
-		baseUrl: 'http://example.com',
+		baseUrl: 'https://example.com',
 		methods: {
 			test1: 'get /test1/{param1}/stuff/{param2}',
 			test2: 'post /test2/{param}',
@@ -30,7 +29,7 @@ describe('ApiClient', function () {
 	it('Should make get request to correct url', function (done) {
 		var expectedOpts = {
 			method: 'GET',
-			url: 'http://example.com/test1/1/stuff/2',
+			url: 'https://example.com/test1/1/stuff/2',
 			responseType: 'json',
 			headers: {
 				'user-agent': 'User-agent header'
@@ -49,7 +48,7 @@ describe('ApiClient', function () {
 	it('It should prepare proper query string', function (done) {
 		var expectedOpts = {
 			method: 'GET',
-			url: 'http://example.com/test1/1/stuff/2?k=v&t=b',
+			url: 'https://example.com/test1/1/stuff/2?k=v&t=b',
 			responseType: 'json',
 			headers: {
 				'user-agent': 'User-agent header'
@@ -69,7 +68,7 @@ describe('ApiClient', function () {
 		var expectedOpts = {
 			method: 'POST',
 			responseType: 'json',
-			url: 'http://example.com/test2/value',
+			url: 'https://example.com/test2/value',
 			data: { a: 1, b: 2 },
 			headers: {
 				'user-agent': 'User-agent header'
@@ -133,7 +132,7 @@ describe('ApiClient', function () {
 		var expectedOpts = {
 			method: 'POST',
 			responseType: 'json',
-			url: 'http://example.com/test3/haha',
+			url: 'https://example.com/test3/haha',
 			data: { to_parse: 42 },
 			headers: {
 				'user-agent': 'User-agent header'
@@ -153,7 +152,7 @@ describe('ApiClient', function () {
 
 	it('Should use global transformResponse function', function (done) {
 		var client = new ApiClient({
-			baseUrl: 'http://example.com',
+			baseUrl: 'https://example.com',
 			methods: { m1: 'get /', m2: 'post /' },
 			transformResponse: function (res) {
 				res.should.be.equal(response);
@@ -174,7 +173,7 @@ describe('ApiClient', function () {
 
 	it('Should throw error on non-200 status code', function (done) {
 		var client = new ApiClient({
-			baseUrl: 'http://example.com',
+			baseUrl: 'https://example.com',
 			methods: { m1: 'get /' }
 		});
 
@@ -189,7 +188,7 @@ describe('ApiClient', function () {
 
 	it('Should call transformRequest method before request', function (done) {
 		var client = new ApiClient({
-			baseUrl: 'http://example.com',
+			baseUrl: 'https://example.com',
 			methods: { m1: 'get /' },
 			transformRequest: {
 				m1: function (params, body, opts) {
@@ -199,7 +198,7 @@ describe('ApiClient', function () {
 		});
 
 		client.request = function (opts) {
-			opts.url.should.be.equal('http://example.com/?a=b');
+			opts.url.should.be.equal('https://example.com/?a=b');
 			done();
 			return Promise.resolve(response);
 		};
@@ -209,11 +208,11 @@ describe('ApiClient', function () {
 
 	it('Should call async transformRequest method before request', function (done) {
 		var client = new ApiClient({
-			baseUrl: 'http://example.com',
+			baseUrl: 'https://example.com',
 			methods: { m1: 'get /' },
 			transformRequest: {
 				m1: function (params, body, opts) {
-					return new Promise(function (res, rej) {
+					return new Promise(function (res) {
 						res([{a:'b'}, body, opts]);
 					});
 				}
@@ -221,7 +220,7 @@ describe('ApiClient', function () {
 		});
 
 		client.request = function (opts) {
-			opts.url.should.be.equal('http://example.com/?a=b');
+			opts.url.should.be.equal('https://example.com/?a=b');
 			done();
 			return Promise.resolve(response);
 		};
@@ -231,7 +230,7 @@ describe('ApiClient', function () {
 
 	it('Should call transformRequest method before request global', function (done) {
 		var client = new ApiClient({
-			baseUrl: 'http://example.com',
+			baseUrl: 'https://example.com',
 			methods: { m1: 'get /', m2: 'get /' },
 			transformRequest: function (a, b, c) {
 				return [{a: 'b'}, b, c];
@@ -239,7 +238,7 @@ describe('ApiClient', function () {
 		});
 
 		client.request = function (opts) {
-			opts.url.should.be.equal('http://example.com/?a=b');
+			opts.url.should.be.equal('https://example.com/?a=b');
 			return Promise.resolve(response);
 		};
 
@@ -251,12 +250,12 @@ describe('ApiClient', function () {
 
 	it('Should handle params in query string for non-get methods', function (done) {
 		var client = new ApiClient({
-			baseUrl: 'http://example.com',
+			baseUrl: 'https://example.com',
 			methods: { m1: 'post /{p1}/{p2}?p3={p3}&p4={p4}'}
 		});
 
 		client.request = function (opts) {
-			opts.url.should.be.equal('http://example.com/a/b?p3=c&p4=d');
+			opts.url.should.be.equal('https://example.com/a/b?p3=c&p4=d');
 			return Promise.resolve(response);
 		};
 
@@ -272,12 +271,12 @@ describe('ApiClient', function () {
 
 	it('Should ignore placeholders in query string if no params passed', function (done) {
 		var client = new ApiClient({
-			baseUrl: 'http://example.com',
+			baseUrl: 'https://example.com',
 			methods: { m1: 'post /{p1}/{p2}?p3={p3}&p4={p4}'}
 		});
 
 		client.request = function (opts) {
-			opts.url.should.be.equal('http://example.com/a/b?p3=%7Bp3%7D&p4=%7Bp4%7D');
+			opts.url.should.be.equal('https://example.com/a/b?p3=%7Bp3%7D&p4=%7Bp4%7D');
 			return Promise.resolve(response);
 		};
 
@@ -291,13 +290,12 @@ describe('ApiClient', function () {
 
 	it('Should assert params', function (done) {
 		var client = new ApiClient({
-			baseUrl: 'http://example.com',
-			methods: { m1: 'post /{p1}/{p2}?p3={p3}&p4={p4}'},
+			baseUrl: 'https://example.com',
+			methods: { m1: 'POST /{p1}/{p2}?p3={p3}&p4={p4}'},
 			required: {
 				m1: ['p1', 'p2']
 			}
 		});
-
 		client.m1({ p1: 1 }).catch(function (err) {
 			err.message.should.be.equal('p2 param is required');
 			done();

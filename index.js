@@ -1,7 +1,7 @@
 var Promise = require('bluebird');
 var request = require('axios');
 var _ = require('lodash');
-var parseQuerString = require('shitty-qs');
+var parseQueryString = require('shitty-qs');
 var debug = require('debug')('apiapi');
 
 if (!global.Promise) {
@@ -33,7 +33,7 @@ function ApiClient (opts) {
 
 	function assertOptions (opts) {
 		if (!opts.baseUrl) {
-			throw new Error('Missng baseUrl option');
+			throw new Error('Missing baseUrl option');
 		}
 
 		if (!opts.methods || !_.isObject(opts.methods)) {
@@ -45,11 +45,11 @@ function ApiClient (opts) {
 		}
 
 		if (opts.required && !_.isObject(opts.required)) {
-			throw new Error('Required fields config must be object');
+			throw new Error('Required fields config must be objected');
 		}
 
 		if (opts.transformResponse && (!_.isObject(opts.transformResponse) && !_.isFunction(opts.transformResponse))) {
-			throw new Error('transformResponse must be object or function');
+			throw new Error('transformResponse must be objected or function');
 		}
 
 		if (opts.transformRequest && (!_.isObject(opts.transformRequest) && !_.isFunction(opts.transformRequest))) {
@@ -68,7 +68,7 @@ function ApiClient (opts) {
 			throw new Error('Body params pick options should be an object');
 		}
 	}
-};
+}
 
 ApiClient.prototype.assert = function assert (cond, errorMessage) {
 	if (!cond) {
@@ -82,10 +82,10 @@ ApiClient.prototype.assertParams = function assertParams (params, methodName) {
 	}
 
 	this.assert(typeof params === 'object', 'method params must be valid object with fields: ' + this.required[methodName].join(', '));
-
-	_.forEach(this.required[methodName], function assertParam (param) {
+	
+	_.forEach(this.required[methodName], (param) => {
 		this.assert(!_.isUndefined(params[param]), param + ' param is required');
-	}, this);
+	});
 };
 
 ApiClient.prototype._composeMethod = function _composeMethod (config, methodName) {
@@ -155,7 +155,7 @@ ApiClient.prototype._composeMethod = function _composeMethod (config, methodName
 	};
 
 	function getUri (requestOptions, params) {
-		var uri = getPath(); 
+		var uri = getPath();
 		var query = getQuery();
 
 		if (query) {
@@ -251,7 +251,7 @@ ApiClient.prototype._getErrorHandler = function _getErrorHandler (methodName) {
 ApiClient.prototype._getRequestOptions = function _getRequestOptions (config, methodName) {
 	var configTokens = config.split(' ');
 
-	if (configTokens.length != 2) {
+	if (configTokens.length !== 2) {
 		throw new Error('Invalid rest endpoint declaration - ' + config);
 	}
 
@@ -275,7 +275,7 @@ ApiClient.prototype._getRequestOptions = function _getRequestOptions (config, me
 		return {
 			path: uriTokens[0],
 			pathParams: extractParams(uriTokens[0]),
-			query: uriTokens.length > 1 ? parseQuerString(uriTokens[1]) : {},
+			query: uriTokens.length > 1 ? parseQueryString(uriTokens[1]) : {},
 			queryParams: uriTokens.length > 1 ? extractParams(uriTokens[1]) : {}
 		};
 
