@@ -314,4 +314,4 @@ ApiClient.prototype._getRequestOptions = function _getRequestOptions(config, met
   }
 }
 
-export { ApiClient }
+module.exports = ApiClient
