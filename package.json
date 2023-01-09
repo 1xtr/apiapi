@@ -3,8 +3,16 @@
   "version": "1.0.3",
   "description": "Create api clients for node and browser with ease",
   "main": "index.js",
+  "module": "index.mjs",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js"
+    }
+  },
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
+    "test": "./node_modules/.bin/mocha",
+    "eslint": "eslint"
   },
   "repository": {
     "type": "git",
@@ -25,15 +33,22 @@
   },
   "homepage": "https://github.com/1xtr/apiapi",
   "dependencies": {
-    "axios": "^0.27.2",
-    "bluebird": "^3.0.2",
+    "axios": "^1.2.2",
+    "axios-rate-limit": "^1.3.0",
     "debug": "^4.3.4",
     "lodash": "^4.17.21",
     "shitty-qs": "^1.0.1"
   },
   "devDependencies": {
-    "mocha": "^10.0.0",
+    "@typescript-eslint/parser": "^5.48.1",
+    "eslint": "^8.31.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "mocha": "^10.2.0",
+    "prettier": "^2.8.2",
     "should": "^13.2.3",
-    "sinon": "^14.0.0"
+    "sinon": "^15.0.1",
+    "typescript": "^4.9.4"
   }
 }
