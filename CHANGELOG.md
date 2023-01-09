@@ -1,3 +1,8 @@
+## 1.1.0 (10-01-2023) fork
+
+- Added commonjs and esm versions
+- Added rate limiter for axios
+
 ## 1.6.0 (29-12-2015)
 
 - Rename `before` option into `transformRequest`
