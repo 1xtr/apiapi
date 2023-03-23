@@ -1,8 +1,11 @@
 ## It's fork of [apiapi](https://github.com/boo1ean/apiapi)
 
-```
-Updated all dependencies
-```
+### In this fork
+
+- Updated all dependencies
+- Added ESM version
+- Added request limiter for Axios (**Default is 7 RPS**)
+
 
 ## Api client for lazy devs
 
@@ -13,7 +16,15 @@ You can use both callbacks and promises for api client methods.
 ## Installation
 
 ```bash
-npm install 1xtr/apiapi
+npm install @1xtr/apiapi
+```
+## Import
+
+```js
+// ES5 example
+const ApiClient = require('1xtr/apiapi');
+// ES6+ example
+import { ApiClient } from '1xtr/apiapi';
 ```
 
 ## Example usage
@@ -21,11 +32,12 @@ npm install 1xtr/apiapi
 Sample api client for github
 
 ```js
-var ApiClient = require('1xtr/apiapi');
+const ApiClient = require('1xtr/apiapi');
 
-var github = new ApiClient({
+const github = new ApiClient({
 	baseUrl: 'https://api.github.com',
-
+	// Set rate limit
+	rateLimitOptions: { maxRPS: 7 },
 	// Define api methods
 	methods: {
 		issues: 'get /repos/{user}/{repo}/issues'
