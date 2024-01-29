@@ -1,10 +1,11 @@
-## It's fork of [apiapi](https://github.com/boo1ean/apiapi)
+### It's fork of [apiapi](https://github.com/boo1ean/apiapi)
 
 ### In this fork
 
 - Updated all dependencies
 - Added ESM version
 - Added request limiter for Axios (**Default is 7 RPS**)
+- Added `http-build-query` for build correct query params (e.g. now allow nested objects)
 
 
 ## Api client for lazy devs
