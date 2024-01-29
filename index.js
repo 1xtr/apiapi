@@ -9,13 +9,14 @@ const _ = require('lodash')
 const axios = require('axios')
 const rateLimit = require('axios-rate-limit')
 const parseQueryString = require('shitty-qs')
+const httpBuildQuery = require('http-build-query')
 
 const debug = Debug('apiapi')
 
 _.templateSettings.interpolate = /{([\s\S]+?)}/g
 
 /**
- * @type {rateLimitOptions}
+ * @type {import('./types').I_RateLimitOptions}
  */
 const rateLimitDefaultOptions = { maxRPS: 7 }
 
@@ -211,11 +212,7 @@ ApiClient.prototype._composeMethod = function _composeMethod(config, methodName)
       )
 
       function stringifyQuery(query) {
-        return _.values(_.map(query, stringifyParam)).join('&')
-
-        function stringifyParam(val, key) {
-          return encodeURIComponent(key) + '=' + encodeURIComponent(val)
-        }
+        return httpBuildQuery(query)
       }
     }
   }
