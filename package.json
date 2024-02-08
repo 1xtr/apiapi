@@ -1,6 +1,6 @@
 {
   "name": "@1xtr/apiapi",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Create api clients for node and browser with ease",
   "main": "index.js",
   "module": "index.mjs",
