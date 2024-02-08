@@ -189,6 +189,19 @@ ApiClient.prototype._composeMethod = function _composeMethod(config, methodName)
 
     function getQuery() {
       if (requestOptions.httpMethod === 'GET') {
+        /**
+         * For simplify set query params, we can set field name in query options,
+         * where are all needed query params. And don't need to set all.
+         * For example, all query params in field with name queryParams: { offset: 3, filter: { id: [1,2]}}
+         * set options for method:
+         * query: {
+         *   methodName: 'queryParams'
+         * }
+         * and result is `?offset=3&filter%5Bid%5D%5B0%5D=1&filter%5Bid%5D%5B1%5D=2`
+         */
+        if (typeof requestOptions.queryParamsPick === 'string') {
+          return stringifyQuery(params[requestOptions.queryParamsPick])
+        }
 
         // Filter out path params
         let queryParams = _.omit(params, requestOptions.uriSchema.pathParams)
@@ -212,6 +225,17 @@ ApiClient.prototype._composeMethod = function _composeMethod(config, methodName)
   }
 
   function getRequestBody(requestOptions, params) {
+    /** Set req body from field (e.g. payload) directly
+     * set for method there need to use
+     * body: { methodName: 'payload' }
+     * Invocation: client.methodName({ payload: { your payload here }, anotherField: 1 }),
+     * will make axios.post('url', { your payload here })
+     * don't need to make any transformRequest
+     */
+    if (typeof requestOptions.bodyParamsPick === 'string') {
+      return params[requestOptions.bodyParamsPick]
+    }
+
     let requestBody = _.omit(params, requestOptions.uriSchema.pathParams)
 
     if (_.isArray(requestOptions.bodyParamsPick)) {
